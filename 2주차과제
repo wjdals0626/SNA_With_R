@@ -1,0 +1,29 @@
+#데이터사이언스세미나I_2주차과제
+library(sna)
+
+#1. 식(2)의 행렬 B에 의한 네트워크 2를 R에 입력하여 그래프를 만들고 degree, density, components 등을 산출하라.
+B <- matrix(c(0,1,1,0,1,
+              1,0,1,0,0,
+              1,1,0,1,0,
+              1,0,0,0,0), nrow=5)
+
+gplot(B, displaylabel=T, boxed.labels=F, vertex.cex=1, arrowhead.cex=1)
+
+degree(B) #degree
+gden(B) #density
+components(B) #components
+
+#2. 다음 R 스크립트로 생성되는 임의 네트워크에서 컴포넌트는 몇 개인가? 컴포넌트 별 구성원 리스트를 만들라.
+set.seed(1234)
+A <- rgraph(10, tprob=0.2)
+component.dist(A)
+
+#3. 4절의 small world 모의실험에서 각 구성원이 자신 외에 평균 10명을 알고 있다면 결과는 어떻게 달라지는가?
+n <- 1000
+N <- n*(n+1)
+mu <- 10
+world.n <- rgraph(n+1, tprob=mu/n)
+D.n <- geodist(world.n)$gdist
+diag(D.n) <- NA
+median(D.n, na.rm=T)
+addmargins(round(table(D.n)/N*100, 1))
