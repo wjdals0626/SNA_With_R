@@ -1,0 +1,25 @@
+#데이터사이언스세미나I_3주차과제
+library(sna)
+
+#1. 다음 표는 Knole의 자금(money) 네트워크로서, 미국 중서부의 한 도시 사회 복지 기관 간 자금의 흐름을 보여준다 (Hanneman and Riddle, 2005, Chapter 4).네트워크 그래프를 만들고 각종 중심성 지표를 산출하여 네트워크를 분석하라 [데이터 셋트 knoke-money.txt]
+knoke.infor <- as.matrix(read.table("C:/Users/pinkk/OneDrive/바탕 화면/jungmin data/knoke-infor.txt", header=T))
+class(knoke.infor)
+
+knoke.infor1 <- read.table("C:/Users/pinkk/OneDrive/바탕 화면/jungmin data/knoke-infor.txt", header=T)
+class(knoke.infor1)
+
+rownames(knoke.infor) <- colnames(knoke.infor)
+
+gplot(knoke.infor, displaylabels = T, vertex.cex = 2, edge.col = "orange", boxed.labels = F, arrowhead.cex = 1.25)
+gplot(knoke.infor, displaylabels = T, vertex.cex = 2, edge.col = "black", boxed.labels = F, arrowhead.cex = 1.25)
+
+t(knoke.infor)
+
+round(closeness(knoke.infor, cmode="suminvdir"), 2)
+round(closeness(t(knoke.infor), cmode="suminvdir"), 2)
+round(betweenness(knoke.infor), 1)
+round(betweenness(t(knoke.infor)), 1)
+round(evcent(knoke.infor),2)
+round(evcent(t(knoke.infor),2))
+round(eigen(knoke.infor)$vectors[,1],2)
+round(eigen(t(knoke.infor))$vectors[,1],2)
